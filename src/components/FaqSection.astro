@@ -1,0 +1,73 @@
+---
+interface FaqItem { q: string; a: string; }
+interface Props {
+  eyebrow: string;
+  title: string;
+  items: FaqItem[];
+}
+const { eyebrow, title, items } = Astro.props;
+---
+<section id="faq" class="faq container">
+  <div class="faq__header">
+    <p class="eyebrow">{eyebrow}</p>
+    <h2>{title}</h2>
+  </div>
+
+  <div class="faq__list">
+    {items.map((item) => (
+      <details class="faq__item">
+        <summary>{item.q}</summary>
+        <p>{item.a}</p>
+      </details>
+    ))}
+  </div>
+</section>
+
+<style>
+  .faq { padding-block: var(--space-xl); }
+  .faq__header {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+  }
+  .faq__header h2 { font-size: var(--text-3xl); }
+
+  .faq__list {
+    max-width: var(--max-width-narrow);
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+  .faq__item {
+    background: var(--color-surface);
+    border: 1px solid var(--color-bg-alt);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm) var(--space-md);
+  }
+  .faq__item summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--color-navy);
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+  .faq__item summary::-webkit-details-marker { display: none; }
+  .faq__item summary::after {
+    content: '+';
+    font-family: var(--font-mono);
+    font-size: var(--text-lg);
+    color: var(--color-turquoise);
+    flex-shrink: 0;
+    transition: transform 0.15s ease;
+  }
+  .faq__item[open] summary::after {
+    transform: rotate(45deg);
+  }
+  .faq__item p {
+    margin-top: var(--space-xs);
+    font-size: var(--text-sm);
+  }
+</style>

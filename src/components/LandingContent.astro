@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from './Header.astro';
+import Hero from './Hero.astro';
+import PortfolioSection from './PortfolioSection.astro';
+import PacksSection from './PacksSection.astro';
+import ProcessSection from './ProcessSection.astro';
+import FaqSection from './FaqSection.astro';
+import ContactSection from './ContactSection.astro';
+import Footer from './Footer.astro';
+import { site } from '../data/site.config.js';
+import { landingContent } from '../data/landing-content.js';
+import { getDictionary } from '../data/i18n/index.js';
+
+interface Props { lang?: 'fr' | 'en' | 'es' }
+const { lang = 'fr' } = Astro.props;
+const t = landingContent[lang];
+const nav = getDictionary(lang);
+
+const vcardHref = lang === 'fr' ? '/sail-g/' : `/${lang}/sail-g/`;
+---
+<BaseLayout title={t.pageTitle} description={t.pageDescription} lang={lang}>
+  <Header currentLang={lang} basePath="/">
+    <nav class="main-nav">
+      <a href="#services">{nav['nav.services']}</a>
+      <a href="#process">{nav['nav.process']}</a>
+      <a href="#faq">{nav['nav.faq']}</a>
+      <a href="#contact">{nav['nav.contact']}</a>
+    </nav>
+  </Header>
+
+  <Hero
+    eyebrow={t.heroEyebrow}
+    title={t.heroTitle}
+    subtitle={t.heroSubtitle}
+    ctaPrimaryLabel={t.heroCtaPrimary}
+    ctaPrimaryHref="#services"
+    ctaSecondaryLabel={t.heroCtaSecondary}
+    ctaSecondaryHref={site.whatsappLink}
+  />
+
+  <PortfolioSection
+    eyebrow={t.portfolioEyebrow}
+    title={t.portfolioTitle}
+    text={t.portfolioText}
+    linkLabel={t.portfolioLinkLabel}
+    linkHref={vcardHref}
+  />
+
+  <PacksSection
+    eyebrow={t.packsEyebrow}
+    title={t.packsTitle}
+    subtitle={t.packsSubtitle}
+    ctaLabel={t.packsCta}
+  />
+
+  <ProcessSection
+    eyebrow={t.processEyebrow}
+    title={t.processTitle}
+    steps={t.processSteps}
+  />
+
+  <FaqSection
+    eyebrow={t.faqEyebrow}
+    title={t.faqTitle}
+    items={t.faq}
+  />
+
+  <ContactSection
+    eyebrow={t.contactEyebrow}
+    title={t.contactTitle}
+    subtitle={t.contactSubtitle}
+    formName={t.formName}
+    formEmail={t.formEmail}
+    formMessage={t.formMessage}
+    formSubmit={t.formSubmit}
+    whatsappPrefill={t.whatsappPrefill}
+  />
+
+  <Footer lang={lang} />
+</BaseLayout>
+
+<style>
+  .main-nav {
+    display: flex;
+    gap: var(--space-md);
+    font-size: var(--text-sm);
+    font-weight: 500;
+  }
+  .main-nav a:hover { color: var(--color-turquoise); }
+  @media (max-width: 640px) {
+    .main-nav { display: none; }
+  }
+</style>

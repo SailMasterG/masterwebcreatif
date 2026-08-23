@@ -1,0 +1,85 @@
+---
+interface Props {
+  href: string;
+  label: string;
+  icon: 'phone' | 'chat' | 'mail' | 'pin' | 'download';
+  external?: boolean;
+  emphasis?: boolean;
+}
+const { href, label, icon, external = false, emphasis = false } = Astro.props;
+---
+<a
+  href={href}
+  class={`contact-btn ${emphasis ? 'contact-btn--emphasis' : ''}`}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener noreferrer' : undefined}
+>
+  <span class="contact-btn__icon" aria-hidden="true">
+    {icon === 'phone' && (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.97.36 1.91.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.84.57 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </svg>
+    )}
+    {icon === 'chat' && (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+      </svg>
+    )}
+    {icon === 'mail' && (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+        <polyline points="22,6 12,13 2,6"/>
+      </svg>
+    )}
+    {icon === 'pin' && (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+        <circle cx="12" cy="10" r="3"/>
+      </svg>
+    )}
+    {icon === 'download' && (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7,10 12,15 17,10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+    )}
+  </span>
+  <span class="contact-btn__label">{label}</span>
+</a>
+
+<style>
+  .contact-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: var(--space-sm);
+    background: var(--color-surface);
+    border: 1px solid var(--color-bg-alt);
+    border-radius: var(--radius-md);
+    text-align: center;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+  }
+  .contact-btn:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-turquoise);
+  }
+  .contact-btn__icon {
+    width: 22px;
+    height: 22px;
+    color: var(--color-navy);
+  }
+  .contact-btn__icon svg { width: 100%; height: 100%; }
+  .contact-btn__label {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .contact-btn--emphasis {
+    background: var(--color-navy);
+    border-color: var(--color-navy);
+  }
+  .contact-btn--emphasis .contact-btn__icon { color: var(--color-turquoise-light); }
+  .contact-btn--emphasis .contact-btn__label { color: var(--color-text-on-dark); }
+</style>

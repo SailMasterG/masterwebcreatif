@@ -1,0 +1,65 @@
+---
+import PackCard from './PackCard.astro';
+import { packs } from '../data/packs.js';
+import { site } from '../data/site.config.js';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  ctaLabel: string;
+}
+const { eyebrow, title, subtitle, ctaLabel } = Astro.props;
+
+function whatsappHrefFor(packName) {
+  const text = encodeURIComponent(`Bonjour, je suis intéressé(e) par le ${packName}.`);
+  return `${site.whatsappLink}?text=${text}`;
+}
+---
+<section id="services" class="packs container">
+  <div class="packs__header">
+    <p class="eyebrow">{eyebrow}</p>
+    <h2>{title}</h2>
+    <p class="packs__subtitle">{subtitle}</p>
+  </div>
+
+  <div class="packs__grid">
+    {packs.map((pack) => (
+      <PackCard
+        name={pack.name}
+        tagline={pack.tagline}
+        setupPrice={pack.setupPrice}
+        monthlyPrice={pack.monthlyPrice}
+        features={pack.features}
+        featured={pack.featured}
+        ctaLabel={ctaLabel}
+        ctaHref={whatsappHrefFor(pack.name)}
+      />
+    ))}
+  </div>
+</section>
+
+<style>
+  .packs {
+    padding-block: var(--space-xl);
+  }
+  .packs__header {
+    text-align: center;
+    max-width: var(--max-width-narrow);
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: var(--space-lg);
+  }
+  .packs__header h2 { font-size: var(--text-3xl); }
+  .packs__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    align-items: stretch;
+  }
+  @media (max-width: 860px) {
+    .packs__grid { grid-template-columns: 1fr; max-width: 420px; margin-inline: auto; }
+  }
+</style>

@@ -1,0 +1,61 @@
+---
+interface Props {
+  href: string;
+  variant?: 'primary' | 'secondary' | 'ghost';
+  external?: boolean;
+  icon?: string; // nombre opcional, renderizado como slot "icon"
+}
+
+const { href, variant = 'primary', external = false } = Astro.props;
+---
+<a
+  href={href}
+  class={`btn btn--${variant}`}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener noreferrer' : undefined}
+>
+  <slot name="icon" />
+  <span><slot /></span>
+</a>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: 0.85rem 1.5rem;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: var(--text-base);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    border: 1.5px solid transparent;
+  }
+
+  .btn--primary {
+    background: var(--color-turquoise);
+    color: var(--color-navy);
+  }
+  .btn--primary:hover {
+    background: var(--color-turquoise-light);
+    transform: translateY(-1px);
+  }
+
+  .btn--secondary {
+    background: var(--color-navy);
+    color: var(--color-text-on-dark);
+  }
+  .btn--secondary:hover {
+    background: var(--color-navy-light);
+    transform: translateY(-1px);
+  }
+
+  .btn--ghost {
+    background: transparent;
+    color: var(--color-navy);
+    border-color: var(--color-bg-alt);
+  }
+  .btn--ghost:hover {
+    border-color: var(--color-turquoise);
+  }
+</style>

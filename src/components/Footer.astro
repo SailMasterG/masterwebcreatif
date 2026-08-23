@@ -1,0 +1,48 @@
+---
+import { site } from '../data/site.config.js';
+import { getDictionary } from '../data/i18n/index.js';
+
+interface Props {
+  lang?: string;
+}
+const { lang = 'fr' } = Astro.props;
+const t = getDictionary(lang);
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <p class="site-footer__brand">{site.brand}</p>
+    <p class="site-footer__meta">
+      {site.location} · <a href={`mailto:${site.email}`}>{site.email}</a>
+    </p>
+    <p class="site-footer__copy">© {year} {site.brand}. {t['footer.rights']}</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-navy);
+    color: var(--color-text-on-dark-muted);
+    padding-block: var(--space-lg);
+    margin-top: var(--space-2xl);
+  }
+  .site-footer__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-size: var(--text-sm);
+  }
+  .site-footer__brand {
+    font-family: var(--font-display);
+    color: var(--color-text-on-dark);
+    font-weight: 600;
+  }
+  .site-footer__meta a {
+    color: var(--color-turquoise-light);
+  }
+  .site-footer__copy {
+    color: var(--color-text-on-dark-muted);
+    font-size: var(--text-xs);
+    margin-top: 0.5rem;
+  }
+</style>

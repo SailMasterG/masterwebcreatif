@@ -1,0 +1,68 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  text: string;
+  linkLabel: string;
+  linkHref: string;
+}
+const { eyebrow, title, text, linkLabel, linkHref } = Astro.props;
+---
+<section class="portfolio container">
+  <div class="portfolio__card">
+    <div class="portfolio__text">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2>{title}</h2>
+      <p>{text}</p>
+      <a href={linkHref} class="portfolio__link">{linkLabel}</a>
+    </div>
+    <div class="portfolio__visual" aria-hidden="true">
+      <img src="/sail-g-photo.jpg" alt="" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .portfolio {
+    padding-block: var(--space-xl);
+  }
+  .portfolio__card {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: var(--space-lg);
+    align-items: center;
+    background: var(--color-surface);
+    border: 1px solid var(--color-bg-alt);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-card);
+  }
+  @media (max-width: 720px) {
+    .portfolio__card { grid-template-columns: 1fr; }
+    .portfolio__visual { order: -1; max-width: 180px; margin-inline: auto; }
+  }
+  .portfolio__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .portfolio__text h2 { font-size: var(--text-2xl); }
+  .portfolio__link {
+    margin-top: 0.4rem;
+    font-weight: 600;
+    color: var(--color-navy);
+  }
+  .portfolio__link:hover { color: var(--color-turquoise); }
+  .portfolio__visual {
+    aspect-ratio: 1;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 3px solid var(--color-turquoise-light);
+  }
+  .portfolio__visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+</style>

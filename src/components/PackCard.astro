@@ -1,0 +1,106 @@
+---
+interface Props {
+  name: string;
+  tagline: string;
+  setupPrice: string;
+  monthlyPrice: string;
+  features: string[];
+  featured?: boolean;
+  ctaLabel: string;
+  ctaHref: string;
+}
+const { name, tagline, setupPrice, monthlyPrice, features, featured = false, ctaLabel, ctaHref } = Astro.props;
+---
+<article class={`pack-card ${featured ? 'pack-card--featured' : ''}`}>
+  {featured && <p class="pack-card__badge eyebrow">Le plus choisi</p>}
+  <h3>{name}</h3>
+  <p class="pack-card__tagline">{tagline}</p>
+
+  <div class="pack-card__price">
+    <span class="pack-card__setup">{setupPrice}</span>
+    <span class="pack-card__monthly">+ {monthlyPrice}</span>
+  </div>
+
+  <ul class="pack-card__features">
+    {features.map((f) => <li>{f}</li>)}
+  </ul>
+
+  <a href={ctaHref} class="pack-card__cta">{ctaLabel} →</a>
+</article>
+
+<style>
+  .pack-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-bg-alt);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    box-shadow: var(--shadow-card);
+  }
+  .pack-card--featured {
+    border: 1.5px solid var(--color-turquoise);
+    position: relative;
+  }
+  .pack-card__badge {
+    position: absolute;
+    top: -0.7rem;
+    left: var(--space-lg);
+    background: var(--color-turquoise);
+    color: var(--color-navy);
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-sm);
+  }
+  .pack-card__tagline {
+    font-size: var(--text-sm);
+  }
+  .pack-card__price {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-xs);
+    font-family: var(--font-mono);
+  }
+  .pack-card__setup {
+    font-size: var(--text-2xl);
+    font-weight: 600;
+    color: var(--color-navy);
+  }
+  .pack-card__monthly {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  .pack-card__features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  .pack-card__features li {
+    padding-left: 1.2rem;
+    position: relative;
+  }
+  .pack-card__features li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 6px;
+    height: 6px;
+    background: var(--color-turquoise);
+    border-radius: 1px;
+  }
+  .pack-card__cta {
+    margin-top: auto;
+    padding-top: var(--space-sm);
+    font-weight: 600;
+    color: var(--color-navy);
+  }
+  .pack-card__cta:hover {
+    color: var(--color-turquoise);
+  }
+</style>

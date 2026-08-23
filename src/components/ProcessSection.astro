@@ -1,0 +1,64 @@
+---
+interface Step { title: string; text: string; }
+interface Props {
+  eyebrow: string;
+  title: string;
+  steps: Step[];
+}
+const { eyebrow, title, steps } = Astro.props;
+---
+<section id="process" class="process container">
+  <div class="process__header">
+    <p class="eyebrow">{eyebrow}</p>
+    <h2>{title}</h2>
+  </div>
+
+  <ol class="process__list">
+    {steps.map((step, i) => (
+      <li class="process__step">
+        <span class="process__number">{String(i + 1).padStart(2, '0')}</span>
+        <div>
+          <h3>{step.title}</h3>
+          <p>{step.text}</p>
+        </div>
+      </li>
+    ))}
+  </ol>
+</section>
+
+<style>
+  .process { padding-block: var(--space-xl); }
+  .process__header {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+  }
+  .process__header h2 { font-size: var(--text-3xl); }
+
+  .process__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: var(--max-width-narrow);
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .process__step {
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: var(--space-md);
+    padding-block: var(--space-md);
+    border-top: 1px solid var(--color-bg-alt);
+  }
+  .process__step:last-child { border-bottom: 1px solid var(--color-bg-alt); }
+  .process__number {
+    font-family: var(--font-mono);
+    font-size: var(--text-xl);
+    color: var(--color-turquoise);
+    font-weight: 500;
+  }
+  .process__step h3 {
+    font-size: var(--text-lg);
+    margin-bottom: 0.3rem;
+  }
+</style>

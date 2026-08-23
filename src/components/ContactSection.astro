@@ -1,0 +1,117 @@
+---
+import { site } from '../data/site.config.js';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  formName: string;
+  formEmail: string;
+  formMessage: string;
+  formSubmit: string;
+  whatsappPrefill: string;
+}
+const { eyebrow, title, subtitle, formName, formEmail, formMessage, formSubmit, whatsappPrefill } = Astro.props;
+
+const whatsappHref = `${site.whatsappLink}?text=${encodeURIComponent(whatsappPrefill)}`;
+
+// ⚠️ Reemplaza VOTRE_ID_FORMULAIRE por tu ID real de Formspree
+// (obtenido en formspree.io tras crear tu formulario)
+const formAction = 'https://formspree.io/f/VOTRE_ID_FORMULAIRE';
+---
+<section id="contact" class="contact container">
+  <div class="contact__card">
+    <div class="contact__intro">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2>{title}</h2>
+      <p>{subtitle}</p>
+      <a href={whatsappHref} class="contact__whatsapp" target="_blank" rel="noopener noreferrer">
+        WhatsApp →
+      </a>
+    </div>
+
+    <form class="contact__form" action={formAction} method="POST">
+      <label>
+        {formName}
+        <input type="text" name="name" required />
+      </label>
+      <label>
+        {formEmail}
+        <input type="email" name="email" required />
+      </label>
+      <label>
+        {formMessage}
+        <textarea name="message" rows="4" required></textarea>
+      </label>
+      <button type="submit">{formSubmit}</button>
+    </form>
+  </div>
+</section>
+
+<style>
+  .contact { padding-block: var(--space-xl); }
+  .contact__card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+    background: var(--color-navy);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+  }
+  @media (max-width: 720px) {
+    .contact__card { grid-template-columns: 1fr; }
+  }
+  .contact__intro {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: var(--color-text-on-dark-muted);
+  }
+  .contact__intro h2 { color: var(--color-text-on-dark); font-size: var(--text-2xl); }
+  .contact__intro .eyebrow { color: var(--color-turquoise-light); }
+  .contact__whatsapp {
+    margin-top: var(--space-sm);
+    align-self: flex-start;
+    padding: 0.8rem 1.5rem;
+    border-radius: var(--radius-sm);
+    background: var(--color-turquoise);
+    color: var(--color-navy);
+    font-weight: 600;
+  }
+  .contact__whatsapp:hover { background: var(--color-turquoise-light); }
+
+  .contact__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  .contact__form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: var(--text-sm);
+    color: var(--color-text-on-dark-muted);
+  }
+  .contact__form input,
+  .contact__form textarea {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    padding: 0.7rem 0.85rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-navy-light);
+    background: var(--color-navy-light);
+    color: var(--color-text-on-dark);
+  }
+  .contact__form input::placeholder,
+  .contact__form textarea::placeholder { color: var(--color-text-on-dark-muted); }
+  .contact__form button {
+    margin-top: 0.25rem;
+    padding: 0.8rem;
+    border-radius: var(--radius-sm);
+    background: var(--color-turquoise);
+    color: var(--color-navy);
+    font-weight: 600;
+    border: none;
+  }
+  .contact__form button:hover { background: var(--color-turquoise-light); }
+</style>

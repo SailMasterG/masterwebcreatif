@@ -1,0 +1,119 @@
+/* ============================================================
+   MASTER WEB CRÉATIF — Design tokens
+   Extraídos del logo (navy exacto por muestreo de píxeles)
+   + acento frío turquesa elegido para el negocio.
+   Este archivo es la ÚNICA fuente de verdad de color/tipografía.
+   Al clonar el proyecto para un cliente nuevo, solo se edita esto.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap');
+
+:root {
+  /* Color — marca */
+  --color-navy: #132E41;
+  --color-navy-light: #1E4560;
+  --color-turquoise: #2AB7B0;
+  --color-turquoise-light: #7FDBD3;
+
+  /* Color — superficie */
+  --color-bg: #FAFBFB;
+  --color-bg-alt: #EEF1F2;
+  --color-surface: #FFFFFF;
+
+  /* Color — texto */
+  --color-text: #132E41;
+  --color-text-muted: #5C6B75;
+  --color-text-on-dark: #FAFBFB;
+  --color-text-on-dark-muted: #A9BAC4;
+
+  /* Tipografía */
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Escala tipográfica */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.5rem;
+  --text-4xl: 3.5rem;
+
+  /* Espaciado */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+  --space-2xl: 6rem;
+
+  /* Radios y bordes — deliberadamente casi rectos (identidad del logo:
+     cuadro + ángulos), con un único radio suave para tarjetas/botones */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+
+  /* Sombra sutil, nunca decorativa por defecto */
+  --shadow-card: 0 1px 2px rgba(19, 46, 65, 0.06), 0 8px 24px rgba(19, 46, 65, 0.06);
+
+  /* Layout */
+  --max-width: 1120px;
+  --max-width-narrow: 720px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--color-navy);
+  line-height: 1.1;
+  margin: 0;
+}
+
+p { margin: 0; line-height: 1.6; color: var(--color-text-muted); }
+
+a { color: inherit; text-decoration: none; }
+
+button { font-family: inherit; cursor: pointer; }
+
+/* Foco visible accesible — nunca se elimina, solo se restiliza */
+:focus-visible {
+  outline: 2px solid var(--color-turquoise);
+  outline-offset: 2px;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--space-md);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-turquoise);
+}

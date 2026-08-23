@@ -1,0 +1,51 @@
+---
+// Selector de idioma. Cada página existe en 3 rutas (ej. /, /en/, /es/)
+// generadas estáticamente — ver Paso 4 para el detalle de rutas.
+import { languages } from '../data/site.config.js';
+
+interface Props {
+  currentLang: string;
+  basePath: string; // ruta base sin prefijo de idioma, ej. "/" o "/sail-g/"
+}
+const { currentLang, basePath } = Astro.props;
+
+const labels = { fr: 'FR', en: 'EN', es: 'ES' };
+
+function hrefFor(lang) {
+  if (lang === 'fr') return basePath;
+  return `/${lang}${basePath}`;
+}
+---
+<nav class="lang-switch" aria-label="Sélecteur de langue">
+  {languages.map((lang) => (
+    <a
+      href={hrefFor(lang)}
+      class={lang === currentLang ? 'is-active' : ''}
+      aria-current={lang === currentLang ? 'true' : undefined}
+    >
+      {labels[lang]}
+    </a>
+  ))}
+</nav>
+
+<style>
+  .lang-switch {
+    display: flex;
+    gap: 0.25rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+  }
+  .lang-switch a {
+    padding: 0.35rem 0.6rem;
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+  }
+  .lang-switch a.is-active {
+    color: var(--color-navy);
+    background: var(--color-bg-alt);
+    font-weight: 600;
+  }
+  .lang-switch a:hover {
+    color: var(--color-turquoise);
+  }
+</style>

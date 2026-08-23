@@ -1,0 +1,207 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LanguageSwitch from './LanguageSwitch.astro';
+import ContactButton from './ContactButton.astro';
+import SocialLink from './SocialLink.astro';
+import WaveDivider from './WaveDivider.astro';
+import Footer from './Footer.astro';
+import { site } from '../data/site.config.js';
+import { vcardContent } from '../data/vcard-content.js';
+
+interface Props { lang?: 'fr' | 'en' | 'es' }
+const { lang = 'fr' } = Astro.props;
+const t = vcardContent[lang];
+
+const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(t.location)}`;
+---
+<BaseLayout title={t.pageTitle} description={t.pageDescription} lang={lang}>
+  <div class="vcard-page">
+    <div class="container vcard-page__topbar">
+      <LanguageSwitch currentLang={lang} basePath="/sail-g/" />
+    </div>
+
+    <main class="vcard-card container">
+      <!-- Hero -->
+      <section class="vcard-hero">
+        <div class="vcard-hero__avatar">
+          <img src="/sail-g-photo.jpg" alt={site.contactName} />
+        </div>
+        <p class="eyebrow">{site.brand}</p>
+        <h1>{site.contactName}</h1>
+        <p class="vcard-hero__role">{t.role}</p>
+        <p class="vcard-hero__company">{t.company}</p>
+        <p class="vcard-hero__subtitle">{t.subtitle}</p>
+      </section>
+
+      <WaveDivider />
+
+      <!-- Contact actions -->
+      <section class="vcard-section">
+        <h2 class="vcard-section__title">{t.contactSectionLabel}</h2>
+        <div class="contact-grid">
+          <ContactButton href={`tel:${site.whatsapp}`} label={t.call} icon="phone" />
+          <ContactButton href={site.whatsappLink} label={t.whatsapp} icon="chat" external emphasis />
+          <ContactButton href={`mailto:${site.email}`} label={t.email} icon="mail" />
+          <ContactButton href={mapsHref} label={t.location} icon="pin" external />
+        </div>
+
+        <a href="/sail-g.vcf" download="Sail-G-MasterWebCreatif.vcf" class="add-contact-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7,10 12,15 17,10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          {t.addContact}
+        </a>
+      </section>
+
+      <!-- Social -->
+      <section class="vcard-section vcard-section--center">
+        <h2 class="vcard-section__title">{t.socialSectionLabel}</h2>
+        <div class="social-row">
+          <SocialLink href={site.social.instagram} label="Instagram" icon="instagram" />
+          <SocialLink href={site.social.linkedin} label="LinkedIn" icon="linkedin" />
+          <SocialLink href={site.social.tiktok} label="TikTok" icon="tiktok" />
+        </div>
+      </section>
+
+      <WaveDivider flip />
+
+      <!-- CTA final -->
+      <section class="vcard-cta">
+        <h2>{t.ctaTitle}</h2>
+        <p>{t.ctaText}</p>
+        <a href={site.whatsappLink} class="vcard-cta__button" target="_blank" rel="noopener noreferrer">
+          {t.ctaButton} →
+        </a>
+        <a href={lang === 'fr' ? '/' : `/${lang}/`} class="vcard-cta__secondary">{t.seeOffers}</a>
+      </section>
+    </main>
+
+    <Footer lang={lang} />
+  </div>
+</BaseLayout>
+
+<style>
+  .vcard-page__topbar {
+    display: flex;
+    justify-content: flex-end;
+    padding-block: var(--space-sm);
+  }
+
+  .vcard-card {
+    max-width: var(--max-width-narrow);
+    padding-bottom: var(--space-xl);
+  }
+
+  .vcard-hero {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    padding-block: var(--space-md) var(--space-lg);
+  }
+  .vcard-hero__avatar {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: var(--space-sm);
+    border: 3px solid var(--color-turquoise);
+    box-shadow: var(--shadow-card);
+  }
+  .vcard-hero__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .vcard-hero h1 {
+    font-size: var(--text-3xl);
+    margin-top: 0.15rem;
+  }
+  .vcard-hero__role {
+    font-weight: 600;
+    color: var(--color-navy);
+  }
+  .vcard-hero__company {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  .vcard-hero__subtitle {
+    max-width: 34ch;
+    margin-top: 0.5rem;
+  }
+
+  .vcard-section {
+    padding-block: var(--space-md);
+  }
+  .vcard-section--center { text-align: center; }
+  .vcard-section__title {
+    font-size: var(--text-sm);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-sm);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xs);
+  }
+  @media (min-width: 480px) {
+    .contact-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  .add-contact-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: var(--space-sm);
+    width: 100%;
+    padding: 0.9rem;
+    border-radius: var(--radius-sm);
+    background: var(--color-turquoise);
+    color: var(--color-navy);
+    font-weight: 600;
+    transition: background 0.15s ease;
+  }
+  .add-contact-btn:hover { background: var(--color-turquoise-light); }
+
+  .social-row {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+  }
+
+  .vcard-cta {
+    text-align: center;
+    padding-block: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .vcard-cta h2 { font-size: var(--text-2xl); }
+  .vcard-cta p { max-width: 32ch; }
+  .vcard-cta__button {
+    margin-top: var(--space-xs);
+    padding: 0.9rem 1.75rem;
+    border-radius: var(--radius-sm);
+    background: var(--color-navy);
+    color: var(--color-text-on-dark);
+    font-weight: 600;
+  }
+  .vcard-cta__button:hover { background: var(--color-navy-light); }
+  .vcard-cta__secondary {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .vcard-cta__secondary:hover { color: var(--color-turquoise); }
+</style>

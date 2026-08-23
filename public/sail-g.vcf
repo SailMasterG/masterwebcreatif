@@ -1,0 +1,12 @@
+BEGIN:VCARD
+VERSION:3.0
+N:G;Sail;;;
+FN:Sail G
+ORG:Master Web Créatif
+TITLE:Graphiste & Photographe créatif
+TEL;TYPE=CELL,VOICE:+41774481902
+EMAIL;TYPE=WORK:info@masterwebcreatif.ch
+URL:https://masterwebcreatif.ch
+ADR;TYPE=WORK:;;Canton de Vaud;;;;Suisse
+NOTE:Sites web\, identité visuelle & cartes de visite digitales.
+END:VCARD

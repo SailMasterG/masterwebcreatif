@@ -1,0 +1,43 @@
+---
+import LanguageSwitch from './LanguageSwitch.astro';
+
+interface Props {
+  currentLang: string;
+  basePath: string;
+  transparent?: boolean;
+}
+const { currentLang, basePath, transparent = false } = Astro.props;
+---
+<header class={`site-header ${transparent ? 'site-header--transparent' : ''}`}>
+  <div class="container site-header__inner">
+    <a href="/" class="site-header__brand">
+      <img src="/logo.png" alt="Master Web Créatif" height="28" />
+    </a>
+    <div class="site-header__nav">
+      <slot />
+      <LanguageSwitch currentLang={currentLang} basePath={basePath} />
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(250, 251, 251, 0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--color-bg-alt);
+  }
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: var(--space-sm);
+  }
+  .site-header__nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+</style>
