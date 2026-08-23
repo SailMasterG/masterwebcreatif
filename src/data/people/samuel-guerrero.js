@@ -15,6 +15,8 @@ export const person = {
   brand: 'PROFESSIONAL',
   content: {
     fr: {
+      share: 'Partager ma carte',
+      linkCopied: 'Lien copié !',
       pageTitle: 'Samuel Guerrero — FinActive',
       pageDescription: 'Conseiller financier et en assurances basé en Suisse. Optimisation fiscale, prévoyance, assurances et investissements.',
       role: 'Conseiller en Assurances & Prévoyance',
@@ -31,6 +33,8 @@ export const person = {
       call: 'Appeler', whatsapp: 'WhatsApp', email: 'Email',
     },
     en: {
+      share: 'Share my card',
+      linkCopied: 'Link copied!',
       pageTitle: 'Samuel Guerrero — FinActive',
       pageDescription: 'Financial & insurance advisor based in Switzerland. Tax optimization, pension planning, insurance, and investments.',
       role: 'Insurance & Pension Advisor',
@@ -47,6 +51,8 @@ export const person = {
       call: 'Call', whatsapp: 'WhatsApp', email: 'Email',
     },
     es: {
+      share: 'Compartir mi tarjeta',
+      linkCopied: '¡Enlace copiado!',
       pageTitle: 'Samuel Guerrero — FinActive',
       pageDescription: 'Asesor financiero y de seguros en Suiza. Optimización fiscal, planes de pensiones 3A/3B, seguros e inversiones.',
       role: 'Asesor de Seguros y Pensiones',
