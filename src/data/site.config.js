@@ -8,7 +8,7 @@ export const site = {
   brand: 'Master Web Créatif',
   contactName: 'Sail G',
   role: 'Graphiste & Photographe créatif',
-  domain: 'https://studiocreativosg.com',
+  domain: 'https://webmastercreatif.ch',
 
   // ⚠️ Número temporal — reemplazar por línea privada cuando esté lista
   whatsapp: '+41774481902',
