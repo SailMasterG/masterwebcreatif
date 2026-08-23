@@ -15,6 +15,8 @@ export const person = {
   brand: "MasterWebCreatif",
   content: {
     fr: {
+      share: 'Partager ma carte',
+      linkCopied: 'Lien copié !',
       pageTitle: 'Sail G — Master Web Créatif',
       pageDescription: 'Graphiste & photographe créatif basé en Suisse romande. Sites web, identité visuelle et cartes de visite digitales.',
       role: 'Graphiste & Photographe créatif',
@@ -31,6 +33,8 @@ export const person = {
       call: 'Appeler', whatsapp: 'WhatsApp', email: 'Email',
     },
     en: {
+	  share: 'Share my card',
+      linkCopied: 'Link copied!',
       pageTitle: 'Sail G — Master Web Créatif',
       pageDescription: 'Creative graphic designer & photographer based in French-speaking Switzerland. Websites, visual identity and digital business cards.',
       role: 'Graphic Designer & Creative Photographer',
@@ -47,6 +51,8 @@ export const person = {
       call: 'Call', whatsapp: 'WhatsApp', email: 'Email',
     },
     es: {
+      share: 'Compartir mi tarjeta',
+      linkCopied: '¡Enlace copiado!',
       pageTitle: 'Sail G — Master Web Créatif',
       pageDescription: 'Diseñador gráfico y fotógrafo creativo en la Suiza francófona. Sitios web, identidad visual y tarjetas de presentación digitales.',
       role: 'Diseñador gráfico y fotógrafo creativo',
