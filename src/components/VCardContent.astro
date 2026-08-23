@@ -6,28 +6,30 @@ import SocialLink from './SocialLink.astro';
 import WaveDivider from './WaveDivider.astro';
 import Footer from './Footer.astro';
 import { site } from '../data/site.config.js';
-import { vcardContent } from '../data/vcard-content.js';
 
-interface Props { lang?: 'fr' | 'en' | 'es' }
-const { lang = 'fr' } = Astro.props;
-const t = vcardContent[lang];
+
+interface Props { lang?: 'fr' | 'en' | 'es'; person: any }
+const { lang = 'fr', person } = Astro.props;
+const t = person.content[lang];
 
 const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(t.location)}`;
 ---
 <BaseLayout title={t.pageTitle} description={t.pageDescription} lang={lang}>
   <div class="vcard-page">
     <div class="container vcard-page__topbar">
-      <LanguageSwitch currentLang={lang} basePath="/sail-g/" />
+      <LanguageSwitch currentLang={lang} basePath={`/${person.id}/`} />
     </div>
 
-    <main class="vcard-card container">
-      <!-- Hero -->
+<main
+  class="vcard-card container"
+  style={`--color-navy:${person.theme.navy}; --color-navy-light:${person.theme.navyLight}; --color-turquoise:${person.theme.accent}; --color-turquoise-light:${person.theme.accentLight};`}
+>      <!-- Hero -->
       <section class="vcard-hero">
         <div class="vcard-hero__avatar">
-          <img src="/sail-g-photo.jpg" alt={site.contactName} />
+          <img src={person.photo} alt={person.contactName} />
         </div>
-        <p class="eyebrow">{site.brand}</p>
-        <h1>{site.contactName}</h1>
+        <p class="eyebrow">{person.brand}</p>
+        <h1>{person.contactName}</h1>
         <p class="vcard-hero__role">{t.role}</p>
         <p class="vcard-hero__company">{t.company}</p>
         <p class="vcard-hero__subtitle">{t.subtitle}</p>
@@ -39,14 +41,13 @@ const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURICom
       <section class="vcard-section">
         <h2 class="vcard-section__title">{t.contactSectionLabel}</h2>
         <div class="contact-grid">
-          <ContactButton href={`tel:${site.whatsapp}`} label={t.call} icon="phone" />
-          <ContactButton href={site.whatsappLink} label={t.whatsapp} icon="chat" external emphasis />
-          <ContactButton href={`mailto:${site.email}`} label={t.email} icon="mail" />
+          <ContactButton href={`tel:${person.whatsapp}`} label={t.call} icon="phone" />
+          <ContactButton href={person.whatsappLink} label={t.whatsapp} icon="chat" external emphasis />
+          <ContactButton href={`mailto:${person.email}`} label={t.email} icon="mail" />
           <ContactButton href={mapsHref} label={t.location} icon="pin" external />
         </div>
 
-        <a href="/sail-g.vcf" download="Sail-G-MasterWebCreatif.vcf" class="add-contact-btn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+      <a href={person.vcf} download={`${person.contactName.replace(/\s+/g, '-')}.vcf`} class="add-contact-btn">          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
             <polyline points="7,10 12,15 17,10"/>
             <line x1="12" y1="15" x2="12" y2="3"/>
@@ -59,9 +60,9 @@ const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURICom
       <section class="vcard-section vcard-section--center">
         <h2 class="vcard-section__title">{t.socialSectionLabel}</h2>
         <div class="social-row">
-          <SocialLink href={site.social.instagram} label="Instagram" icon="instagram" />
-          <SocialLink href={site.social.linkedin} label="LinkedIn" icon="linkedin" />
-          <SocialLink href={site.social.tiktok} label="TikTok" icon="tiktok" />
+          <SocialLink href={person.social.instagram} label="Instagram" icon="instagram" />
+          <SocialLink href={person.social.linkedin} label="LinkedIn" icon="linkedin" />
+          <SocialLink href={person.social.tiktok} label="TikTok" icon="tiktok" />
         </div>
       </section>
 
@@ -71,7 +72,7 @@ const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURICom
       <section class="vcard-cta">
         <h2>{t.ctaTitle}</h2>
         <p>{t.ctaText}</p>
-        <a href={site.whatsappLink} class="vcard-cta__button" target="_blank" rel="noopener noreferrer">
+        <a href={person.whatsappLink} class="vcard-cta__button" target="_blank" rel="noopener noreferrer">
           {t.ctaButton} →
         </a>
         <a href={lang === 'fr' ? '/' : `/${lang}/`} class="vcard-cta__secondary">{t.seeOffers}</a>
